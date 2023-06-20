@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import './MainView.scss';
-import { TextButton } from '../Common/TextButton/TextButton';
 import classNames from 'classnames';
-import { ISize } from '../../interfaces/ISize';
-import { ImageButton } from '../Common/ImageButton/ImageButton';
-import { ISocialMedia, SocialMediaData } from '../../data/info/SocialMediaData';
-import { EditorFeatureData, IEditorFeature } from '../../data/info/EditorFeatureData';
-import { styled, Tooltip, tooltipClasses, TooltipProps } from '@mui/material';
+import {ISize} from '../../interfaces/ISize';
+import {ImageButton} from '../Common/ImageButton/ImageButton';
+import {ISocialMedia, SocialMediaData} from '../../data/info/SocialMediaData';
+import {EditorFeatureData, IEditorFeature} from '../../data/info/EditorFeatureData';
+import {styled, Tooltip, tooltipClasses, TooltipProps} from '@mui/material';
 import Fade from '@mui/material/Fade';
-import ImagesDropZone from './ImagesDropZone/ImagesDropZone';
+import ImagesUpload from "~/views/MainView/ImageUpload/ImagesUpload";
 
 const MainView: React.FC = () => {
     const [projectInProgress, setProjectInProgress] = useState(false);
@@ -89,51 +88,7 @@ const MainView: React.FC = () => {
     };
 
     return (
-        <div className={getClassName()}>
-            <div className='Slider' id='lower'>
-                <div className='TriangleVertical'>
-                    <div className='TriangleVerticalContent' />
-                </div>
-            </div>
-
-            <div className='Slider' id='upper'>
-                <div className='TriangleVertical'>
-                    <div className='TriangleVerticalContent' />
-                </div>
-            </div>
-
-            <div className='LeftColumn'>
-                <div className={'LogoWrapper'}>
-                    <img
-                        draggable={false}
-                        alt={'main-logo'}
-                        src={'ico/main-image-color.png'}
-                    />
-                </div>
-                <div className='EditorFeaturesWrapper'>
-                    {getEditorFeatureTiles()}
-                </div>
-                <div className='TriangleVertical'>
-                    <div className='TriangleVerticalContent' />
-                </div>
-                {projectInProgress && <TextButton
-                    label={'Go Back'}
-                    onClick={endProject}
-                />}
-            </div>
-            <div className='RightColumn'>
-                <div />
-                <ImagesDropZone />
-                <div className='SocialMediaWrapper'>
-                    {getSocialMediaButtons({ width: 30, height: 30 })}
-                </div>
-                {!projectInProgress && <TextButton
-                    label={'Get Started'}
-                    onClick={startProject}
-                    externalClassName={'get-started-button'}
-                />}
-            </div>
-        </div>
+        <ImagesUpload />
     );
 };
 

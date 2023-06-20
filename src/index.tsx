@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(document.getElementById('root') || document.cre
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-            <App />
+            <App isObjectDetectorLoaded={false} isPoseDetectionLoaded={false} />
         </Provider>
     </React.StrictMode>
 );
