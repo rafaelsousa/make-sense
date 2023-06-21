@@ -21,7 +21,6 @@ interface IProps {
 
 const ImagesUpload: React.FC<IProps> = (props: PropsWithChildren<IProps>) => {
 
-    const [acceptedFiles, setAcceptedFiles] = useState([]);
 
     useEffect(() => {
         fetchFiles();

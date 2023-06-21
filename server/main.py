@@ -13,16 +13,29 @@ CORS(app)
 
 
 @app.route('/images', methods=['GET'])
-def get_files():
+def get_images():
     images = os.listdir(os.path.join(currentDir, 'images'))
     return jsonify(images=images)
 
 
 @app.route('/image/<image>', methods=['GET'])
-def get_file(image):
+def get_image(image):
     # Open the file and send it to the client
     if os.path.exists(os.path.join(currentDir, 'images', image)):
         return send_file(os.path.join(currentDir, 'images', image))
+
+
+@app.route('/annotations', methods=['GET'])
+def get_annotations():
+    annotations = os.listdir(os.path.join(currentDir, 'annotations'))
+    return jsonify(annotations=annotations)
+
+
+@app.route('/annotation/<annotation>', methods=['GET'])
+def get_annotation(annotation):
+    # Open the file and send it to the client
+    if os.path.exists(os.path.join(currentDir, 'annotations', annotation)):
+        return send_file(os.path.join(currentDir, 'annotations', annotation))
 
 
 if __name__ == '__main__':
