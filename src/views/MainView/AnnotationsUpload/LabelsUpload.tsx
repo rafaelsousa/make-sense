@@ -1,11 +1,7 @@
 import React, {PropsWithChildren, useEffect} from 'react';
 import {ImageData, LabelName} from '~/store/labels/types';
 import {connect} from 'react-redux';
-import {
-    updateActiveLabelType,
-    updateImageData,
-    updateLabelNames
-} from '~/store/labels/actionCreators';
+import {updateActiveLabelType, updateImageData, updateLabelNames} from '~/store/labels/actionCreators';
 import {AppState} from '~/store';
 import axios from "axios";
 import {ImporterSpecData} from "~/data/ImporterSpecData";
