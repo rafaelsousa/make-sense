@@ -1,6 +1,7 @@
 import {updateActivePopupType} from '../../store/general/actionCreators';
 import {PopupWindowType} from '../enums/PopupWindowType';
 import {store} from '../../index';
+import {RectLabelsExporter} from "~/logic/export/RectLabelsExporter";
 
 export type DropDownMenuNode = {
     name: string
@@ -35,38 +36,46 @@ export const DropDownMenuData: DropDownMenuNode[] = [
                 disabled: false,
                 onClick: () => store.dispatch(updateActivePopupType(PopupWindowType.IMPORT_IMAGES))
             },
+            // {
+            //     name: 'Import Annotations',
+            //     description: 'Import annotations from file',
+            //     imageSrc: 'ico/import-labels.png',
+            //     imageAlt: 'import-labels',
+            //     disabled: false,
+            //     onClick: () => store.dispatch(updateActivePopupType(PopupWindowType.IMPORT_ANNOTATIONS))
+            // },
             {
-                name: 'Import Annotations',
-                description: 'Import annotations from file',
-                imageSrc: 'ico/import-labels.png',
-                imageAlt: 'import-labels',
-                disabled: false,
-                onClick: () => store.dispatch(updateActivePopupType(PopupWindowType.IMPORT_ANNOTATIONS))
-            },
-            {
-                name: 'Export Annotations',
-                description: 'Export annotations to file',
+                name: 'Publish Annotations to Server',
+                description: 'Publish annotations to server',
                 imageSrc: 'ico/export-labels.png',
                 imageAlt: 'export-labels',
                 disabled: false,
-                onClick: () => store.dispatch(updateActivePopupType(PopupWindowType.EXPORT_ANNOTATIONS))
+                onClick: () => RectLabelsExporter.publishAsYOLO()
             },
-            {
-                name: 'Run AI locally',
-                description: 'Run annotation model in browser',
-                imageSrc: 'ico/ai.png',
-                imageAlt: 'load-ai-model-in-browser',
-                disabled: false,
-                onClick: () => store.dispatch(updateActivePopupType(PopupWindowType.LOAD_AI_MODEL))
-            },
-            {
-                name: 'Connect AI server',
-                description: 'Run annotation model on server',
-                imageSrc: 'ico/api.png',
-                imageAlt: 'connect-ai-server',
-                disabled: false,
-                onClick: () => store.dispatch(updateActivePopupType(PopupWindowType.CONNECT_AI_MODEL_VIA_API))
-            },
+            // {
+            //     name: 'Export Annotations',
+            //     description: 'Export annotations to file',
+            //     imageSrc: 'ico/export-labels.png',
+            //     imageAlt: 'export-labels',
+            //     disabled: false,
+            //     onClick: () => store.dispatch(updateActivePopupType(PopupWindowType.EXPORT_ANNOTATIONS))
+            // },
+            // {
+            //     name: 'Run AI locally',
+            //     description: 'Run annotation model in browser',
+            //     imageSrc: 'ico/ai.png',
+            //     imageAlt: 'load-ai-model-in-browser',
+            //     disabled: false,
+            //     onClick: () => store.dispatch(updateActivePopupType(PopupWindowType.LOAD_AI_MODEL))
+            // },
+            // {
+            //     name: 'Connect AI server',
+            //     description: 'Run annotation model on server',
+            //     imageSrc: 'ico/api.png',
+            //     imageAlt: 'connect-ai-server',
+            //     disabled: false,
+            //     onClick: () => store.dispatch(updateActivePopupType(PopupWindowType.CONNECT_AI_MODEL_VIA_API))
+            // },
         ]
     },
     // {

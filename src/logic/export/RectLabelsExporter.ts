@@ -1,17 +1,18 @@
-import {AnnotationFormatType} from '../../data/enums/AnnotationFormatType';
-import {ImageData, LabelName, LabelRect} from '../../store/labels/types';
+import {AnnotationFormatType} from '~/data/enums/AnnotationFormatType';
+import {ImageData, LabelName, LabelRect} from '~/store/labels/types';
 import {ImageRepository} from '../imageRepository/ImageRepository';
 import JSZip from 'jszip';
-import { saveAs } from 'file-saver';
-import {LabelsSelector} from '../../store/selectors/LabelsSelector';
-import {XMLSanitizerUtil} from '../../utils/XMLSanitizerUtil';
-import {ExporterUtil} from '../../utils/ExporterUtil';
-import {GeneralSelector} from '../../store/selectors/GeneralSelector';
+import {saveAs} from 'file-saver';
+import {LabelsSelector} from '~/store/selectors/LabelsSelector';
+import {XMLSanitizerUtil} from '~/utils/XMLSanitizerUtil';
+import {ExporterUtil} from '~/utils/ExporterUtil';
+import {GeneralSelector} from '~/store/selectors/GeneralSelector';
 import {findIndex, findLast} from 'lodash';
-import {ISize} from '../../interfaces/ISize';
-import {NumberUtil} from '../../utils/NumberUtil';
-import {RectUtil} from '../../utils/RectUtil';
-import {Settings} from '../../settings/Settings';
+import {ISize} from '~/interfaces/ISize';
+import {NumberUtil} from '~/utils/NumberUtil';
+import {RectUtil} from '~/utils/RectUtil';
+import {Settings} from '~/settings/Settings';
+import axios from "axios";
 
 export class RectLabelsExporter {
     public static export(exportFormatType: AnnotationFormatType): void {
@@ -36,7 +37,7 @@ export class RectLabelsExporter {
             .forEach((imageData: ImageData) => {
                 const fileContent: string = RectLabelsExporter.wrapRectLabelsIntoYOLO(imageData);
                 if (fileContent) {
-                    const fileName : string = imageData.fileData.name.replace(/\.[^/.]+$/, '.txt');
+                    const fileName: string = imageData.fileData.name.replace(/\.[^/.]+$/, '.txt');
                     try {
                         zip.file(fileName, fileContent);
                     } catch (error) {
@@ -47,7 +48,7 @@ export class RectLabelsExporter {
             });
 
         try {
-            zip.generateAsync({type:'blob'})
+            zip.generateAsync({type: 'blob'})
                 .then((content: Blob) => {
                     saveAs(content, `${ExporterUtil.getExportFileName()}.zip`);
                 });
@@ -57,8 +58,41 @@ export class RectLabelsExporter {
         }
     }
 
+    /**
+     * Sends the annotations directly to the server instead of downloading them
+     * @private
+     */
+    public static publishAsYOLO(): void {
+        LabelsSelector.getImagesData()
+            .forEach((imageData: ImageData) => {
+                const oldStatus = imageData.loadStatus;
+                imageData.loadStatus = true;
+                const fileContent: string = RectLabelsExporter.wrapRectLabelsIntoYOLO(imageData);
+                imageData.loadStatus = oldStatus;
+                if (fileContent) {
+                    const fileName: string = imageData.fileData.name.replace(/\.[^/.]+$/, '.txt');
+                    const file = new File([fileContent], fileName, {type: 'text/plain'});
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    try {
+                        axios.post('http://localhost:5000/annotation', formData, {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        }).then(res => {
+                            console.log(`Response: ${res}`);
+                        }).catch(err => {
+                            console.log(`Error when saving annotations: ${err}`);
+                        });
+                    } catch (error) {
+                        throw new Error(error as string);
+                    }
+                }
+            });
+    }
+
     public static wrapRectLabelIntoYOLO(labelRect: LabelRect, labelNames: LabelName[], imageSize: ISize): string {
-        const snapAndFix = (value: number) => NumberUtil.snapValueToRange(value,0, 1).toFixed(6)
+        const snapAndFix = (value: number) => NumberUtil.snapValueToRange(value, 0, 1).toFixed(6)
         const classIdx: string = findIndex(labelNames, {id: labelRect.labelId}).toString()
         const rectCenter = RectUtil.getCenter(labelRect.rect)
         const rectSize = RectUtil.getSize(labelRect.rect)
@@ -71,10 +105,18 @@ export class RectLabelsExporter {
 
         let [x, y, width, height] = rawBBox.map((value: number) => parseFloat(snapAndFix(value)))
 
-        if (x + width / 2 > 1) { width = 2 * (1 - x) }
-        if (x - width / 2 < 0) { width = 2 * x }
-        if (y + height / 2 > 1) { height = 2 * (1 - y) }
-        if (y - height / 2 < 0) { height = 2 * y }
+        if (x + width / 2 > 1) {
+            width = 2 * (1 - x)
+        }
+        if (x - width / 2 < 0) {
+            width = 2 * x
+        }
+        if (y + height / 2 > 1) {
+            height = 2 * (1 - y)
+        }
+        if (y - height / 2 < 0) {
+            height = 2 * y
+        }
 
         const processedBBox = [x, y, width, height].map((value: number) => snapAndFix(value))
 
@@ -89,7 +131,7 @@ export class RectLabelsExporter {
     ): string {
         const labelName: LabelName = findLast(labelNames, {id: labelRect.labelId});
         const labelFields = [
-            !!labelName ? labelName.name: '',
+            !!labelName ? labelName.name : '',
             Math.round(labelRect.rect.x).toString(),
             Math.round(labelRect.rect.y).toString(),
             Math.round(labelRect.rect.width).toString(),
@@ -121,7 +163,7 @@ export class RectLabelsExporter {
         LabelsSelector.getImagesData().forEach((imageData: ImageData) => {
             const fileContent: string = RectLabelsExporter.wrapImageIntoVOC(imageData);
             if (fileContent) {
-                const fileName : string = imageData.fileData.name.replace(/\.[^/.]+$/, '.xml');
+                const fileName: string = imageData.fileData.name.replace(/\.[^/.]+$/, '.xml');
                 try {
                     zip.file(fileName, fileContent);
                 } catch (error) {
@@ -132,7 +174,7 @@ export class RectLabelsExporter {
         });
 
         try {
-            zip.generateAsync({type:'blob'})
+            zip.generateAsync({type: 'blob'})
                 .then(content => {
                     saveAs(content, `${ExporterUtil.getExportFileName()}.zip`);
                 });
@@ -199,9 +241,11 @@ export class RectLabelsExporter {
         try {
             const contentEntries: string[] = LabelsSelector.getImagesData()
                 .map((imageData: ImageData) => {
-                    return RectLabelsExporter.wrapRectLabelsIntoCSV(imageData)})
+                    return RectLabelsExporter.wrapRectLabelsIntoCSV(imageData)
+                })
                 .filter((imageLabelData: string) => {
-                    return !!imageLabelData})
+                    return !!imageLabelData
+                })
             contentEntries.unshift(Settings.RECT_LABELS_EXPORT_CSV_COLUMN_NAMES)
 
             const content: string = contentEntries.join('\n');

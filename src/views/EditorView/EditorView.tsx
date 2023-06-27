@@ -5,7 +5,7 @@ import {PopupWindowType} from '../../data/enums/PopupWindowType';
 import {AppState} from '../../store';
 import {connect, useDispatch, useSelector} from 'react-redux';
 import TopNavigationBar from './TopNavigationBar/TopNavigationBar';
-import ImagesUpload from "../MainView/ImageUpload/ImagesUpload";
+import ImagesUpload from "../MainView/ImageUpload/ImagesDownload";
 import {updateLabelNames} from "~/store/labels/actionCreators";
 import {LabelName} from "~/store/labels/types";
 import LabelsUpload from "~/views/MainView/AnnotationsUpload/LabelsUpload";

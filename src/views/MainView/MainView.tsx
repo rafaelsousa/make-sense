@@ -7,7 +7,7 @@ import {ISocialMedia, SocialMediaData} from '../../data/info/SocialMediaData';
 import {EditorFeatureData, IEditorFeature} from '../../data/info/EditorFeatureData';
 import {styled, Tooltip, tooltipClasses, TooltipProps} from '@mui/material';
 import Fade from '@mui/material/Fade';
-import ImagesUpload from "~/views/MainView/ImageUpload/ImagesUpload";
+import ImagesUpload from "~/views/MainView/ImageUpload/ImagesDownload";
 
 const MainView: React.FC = () => {
     const [projectInProgress, setProjectInProgress] = useState(false);

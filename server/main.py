@@ -1,12 +1,13 @@
+import logging
 import os
 
-from flask import Flask, jsonify, send_file
+from flask import Flask, jsonify, send_file, request
 from flask_cors import CORS
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
 currentDir = os.path.dirname(os.path.realpath(__file__))
-
 
 # This will enable CORS for the specific origin (http://localhost:5000)
 CORS(app)
@@ -36,6 +37,24 @@ def get_annotation(annotation):
     # Open the file and send it to the client
     if os.path.exists(os.path.join(currentDir, 'annotations', annotation)):
         return send_file(os.path.join(currentDir, 'annotations', annotation))
+
+
+@app.route('/annotation', methods=['POST'])
+def publish_annotation():
+    if 'file' not in request.files:
+        return 'No file part in the request', 400
+
+    file = request.files['file']
+
+    if file.filename == '':
+        return 'No file selected for uploading', 400
+
+    if file:
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(currentDir, 'annotations', filename))
+        logging.info(f"saved file {filename} to annotations folder")
+        return 'File uploaded successfully', 200
+
 
 if __name__ == '__main__':
     app.run(debug=True)
