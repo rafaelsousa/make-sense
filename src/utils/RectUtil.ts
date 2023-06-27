@@ -24,12 +24,14 @@ export class RectUtil {
 
     public static isPointInside(rect: IRect, point: IPoint): boolean {
         if (!rect || !point) return null;
-        return (
+        const pointInside = (
             rect.x <= point.x &&
             rect.x + rect.width >= point.x &&
             rect.y <= point.y &&
             rect.y + rect.height >= point.y
         )
+        // console.log(`cursor_x: ${point.x}, cursor_y ${point.y}, rect_x: ${rect.x}, rect_y: ${rect.y}, rect_x2: ${rect.width+rect.x}, rect_y2: ${rect.height + rect.y}. Point inside: ${pointInside}`)
+        return pointInside;
     }
 
     public static getRectWithCenterAndSize(centerPoint: IPoint, size: ISize): IRect {

@@ -8,6 +8,7 @@ import TopNavigationBar from './TopNavigationBar/TopNavigationBar';
 import ImagesUpload from "../MainView/ImageUpload/ImagesUpload";
 import {updateLabelNames} from "~/store/labels/actionCreators";
 import {LabelName} from "~/store/labels/types";
+import LabelsUpload from "~/views/MainView/AnnotationsUpload/LabelsUpload";
 
 interface IProps {
     activePopupType: PopupWindowType;
@@ -32,10 +33,12 @@ const EditorView: React.FC<IProps> = ({activePopupType, updateLabelNamesAction})
     },[])
 
     const isImagesDataEmpty = imagesData.length === 0;
+    const isLabelsDataEmpty = labels.length === 0;
 
     return (
         <div className={'EditorView'} draggable={false}>
             {isImagesDataEmpty && <ImagesUpload/>}
+            {isLabelsDataEmpty && <LabelsUpload/>}
             {!isImagesDataEmpty &&
                 <>
                     <TopNavigationBar/>

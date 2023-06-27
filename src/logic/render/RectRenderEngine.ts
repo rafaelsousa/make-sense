@@ -213,7 +213,7 @@ export class RectRenderEngine extends BaseRenderEngine {
                     store.dispatch(updateCustomCursorStyle(CustomCursorStyle.MOVE));
                 else
                     RenderEngineUtil.wrapDefaultCursorStyleInCancel(data);
-                this.canvas.style.cursor = 'none';
+                // this.canvas.style.cursor = 'none';
             } else {
                 this.canvas.style.cursor = 'default';
             }

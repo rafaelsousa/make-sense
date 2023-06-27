@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import './ImportLabelPopup.scss';
-import { LabelType } from '../../../data/enums/LabelType';
-import { PopupActions } from '../../../logic/actions/PopupActions';
+import {LabelType} from '../../../data/enums/LabelType';
+import {PopupActions} from '../../../logic/actions/PopupActions';
 import GenericLabelTypePopup from '../GenericLabelTypePopup/GenericLabelTypePopup';
-import { ImportFormatData } from '../../../data/ImportFormatData';
-import { FeatureInProgress } from '../../EditorView/FeatureInProgress/FeatureInProgress';
-import { AppState } from '../../../store';
-import { connect } from 'react-redux';
-import { useDropzone } from 'react-dropzone';
-import { ImageData, LabelName } from '../../../store/labels/types';
-import { updateActiveLabelType, updateImageData, updateLabelNames } from '../../../store/labels/actionCreators';
-import { ImporterSpecData } from '../../../data/ImporterSpecData';
-import { AnnotationFormatType } from '../../../data/enums/AnnotationFormatType';
-import { ILabelFormatData } from '../../../interfaces/ILabelFormatData';
-import { submitNewNotification } from '../../../store/notifications/actionCreators';
-import { NotificationUtil } from '../../../utils/NotificationUtil';
-import { NotificationsDataMap } from '../../../data/info/NotificationsData';
-import { DocumentParsingError } from '../../../logic/import/voc/VOCImporter';
-import { Notification } from '../../../data/enums/Notification';
+import {ImportFormatData} from '../../../data/ImportFormatData';
+import {FeatureInProgress} from '../../EditorView/FeatureInProgress/FeatureInProgress';
+import {AppState} from '../../../store';
+import {connect} from 'react-redux';
+import {useDropzone} from 'react-dropzone';
+import {ImageData, LabelName} from '../../../store/labels/types';
+import {updateActiveLabelType, updateImageData, updateLabelNames} from '../../../store/labels/actionCreators';
+import {ImporterSpecData} from '../../../data/ImporterSpecData';
+import {AnnotationFormatType} from '../../../data/enums/AnnotationFormatType';
+import {ILabelFormatData} from '../../../interfaces/ILabelFormatData';
+import {submitNewNotification} from '../../../store/notifications/actionCreators';
+import {NotificationUtil} from '../../../utils/NotificationUtil';
+import {NotificationsDataMap} from '../../../data/info/NotificationsData';
+import {DocumentParsingError} from '../../../logic/import/voc/VOCImporter';
+import {Notification} from '../../../data/enums/Notification';
 import {LabelNamesNotUniqueError} from '../../../logic/import/yolo/YOLOErrors';
 
 interface IProps {
@@ -77,9 +77,9 @@ const ImportLabelPopup: React.FC<IProps> = (
         submitNewNotification(NotificationUtil.createErrorNotification(NotificationsDataMap[notification]));
     };
 
-    const { getRootProps, getInputProps } = useDropzone({
+    const {getRootProps, getInputProps} = useDropzone({
         accept: {
-            "application/json": [".json" ],
+            "application/json": [".json"],
             "text/plain": [".txt"],
             "application/xml": [".xml"],
         },
@@ -174,7 +174,8 @@ const ImportLabelPopup: React.FC<IProps> = (
             return <>
                 <div className='Message'>
                     Select file format you would like to use to import labels.
-                </div>,
+                </div>
+                ,
                 <div className='Options'>
                     {getOptions(ImportFormatData[type])}
                 </div>
@@ -182,8 +183,8 @@ const ImportLabelPopup: React.FC<IProps> = (
         }
         const importFormatData = ImportFormatData[type];
         return importFormatData.length === 0 ?
-            <FeatureInProgress /> :
-            <div {...getRootProps({ className: 'DropZone' })}>
+            <FeatureInProgress/> :
+            <div {...getRootProps({className: 'DropZone'})}>
                 {getDropZoneContent()}
             </div>;
     };

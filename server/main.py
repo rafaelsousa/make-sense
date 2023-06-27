@@ -37,6 +37,5 @@ def get_annotation(annotation):
     if os.path.exists(os.path.join(currentDir, 'annotations', annotation)):
         return send_file(os.path.join(currentDir, 'annotations', annotation))
 
-
 if __name__ == '__main__':
     app.run(debug=True)

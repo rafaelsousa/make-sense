@@ -2,12 +2,13 @@ import {GeneralActionTypes, GeneralState} from './types';
 import {Action} from '../Actions';
 import {CustomCursorStyle} from '../../data/enums/CustomCursorStyle';
 import {ViewPointSettings} from '../../settings/ViewPointSettings';
+import {ContextType} from "~/data/enums/ContextType";
 
 const initialState: GeneralState = {
     windowSize: null,
     activePopupType: null,
     customCursorStyle: CustomCursorStyle.DEFAULT,
-    activeContext: null,
+    activeContext: ContextType.EDITOR,
     preventCustomCursor: false,
     imageDragMode: false,
     crossHairVisible: true,

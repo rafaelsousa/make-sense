@@ -51,7 +51,6 @@ const ImagesUpload: React.FC<IProps> = (props: PropsWithChildren<IProps>) => {
 
 
     const startEditor = (projectType: ProjectType, acceptedFiles: File[]) => {
-        console.log(acceptedFiles)
         if (acceptedFiles.length > 0) {
             const files = sortBy(acceptedFiles, (item: File) => item.name)
             props.updateProjectDataAction({
