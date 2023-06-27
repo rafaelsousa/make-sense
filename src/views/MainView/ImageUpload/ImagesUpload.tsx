@@ -1,13 +1,13 @@
 import React, {PropsWithChildren, useEffect, useState} from 'react';
-import {ImageData} from '../../../store/labels/types';
+import {ImageData} from '~/store/labels/types';
 import {connect} from 'react-redux';
-import {addImageData, updateActiveImageIndex} from '../../../store/labels/actionCreators';
-import {AppState} from '../../../store';
-import {ProjectType} from '../../../data/enums/ProjectType';
-import {PopupWindowType} from '../../../data/enums/PopupWindowType';
-import {updateActivePopupType, updateProjectData} from '../../../store/general/actionCreators';
-import {ProjectData} from '../../../store/general/types';
-import {ImageDataUtil} from '../../../utils/ImageDataUtil';
+import {addImageData, updateActiveImageIndex} from '~/store/labels/actionCreators';
+import {AppState} from '~/store';
+import {ProjectType} from '~/data/enums/ProjectType';
+import {PopupWindowType} from '~/data/enums/PopupWindowType';
+import {updateActivePopupType, updateProjectData} from '~/store/general/actionCreators';
+import {ProjectData} from '~/store/general/types';
+import {ImageDataUtil} from '~/utils/ImageDataUtil';
 import {sortBy} from 'lodash';
 import axios from "axios";
 
@@ -60,7 +60,6 @@ const ImagesUpload: React.FC<IProps> = (props: PropsWithChildren<IProps>) => {
             props.updateActiveImageIndexAction(0);
             props.addImageDataAction(files.map((file: File) => ImageDataUtil
                 .createImageDataFromFileData(file)));
-            props.updateActivePopupTypeAction(PopupWindowType.INSERT_LABEL_NAMES);
         }
     };
 
