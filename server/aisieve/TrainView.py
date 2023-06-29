@@ -1,3 +1,4 @@
+import logging
 import os
 import threading
 
@@ -11,13 +12,13 @@ trainview = Blueprint('trainview', __name__)
 
 
 def start_training():
-    model = YOLO("yolov8n.pt")
+    try:
+        datafile = os.path.join(get_settings()['datasets_dir'], 'AiSieve.yaml')
 
-    currentPath = os.path.dirname(os.path.realpath(__file__))
-    # Use the model
-    datafile = os.path.join(get_settings()['datasets_dir'], 'AiSieve.yaml')
-    model.train(data=datafile, epochs=3)  # train the model
-    # model.export(model='best.pt', format='onnx')  # export best.pt
+        model = YOLO("yolov8n.pt")
+        model.train(data=datafile, epochs=200)  # train the model
+    except Exception as e:
+        logging.error(f"The training could not be completed: {e}")
 
 
 @trainview.route('/train', methods=['GET'])

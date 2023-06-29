@@ -9,11 +9,13 @@ from flask_cors import CORS
 from ultralytics.yolo.utils import set_settings
 from werkzeug.utils import secure_filename
 
+from aisieve.DetectView import detectionview
 from aisieve.TrainView import trainview
 
 app = Flask(__name__)
 
 app.register_blueprint(trainview)
+app.register_blueprint(detectionview)
 
 currentDir = os.path.dirname(os.path.realpath(__file__))
 
