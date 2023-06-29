@@ -1,0 +1,10 @@
+path: ./data
+train: train/peeble
+val: val/peeble
+
+# number of classes
+nc: 1
+
+# class names
+names:
+  0: peeble

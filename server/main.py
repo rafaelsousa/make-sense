@@ -1,11 +1,19 @@
+import hashlib
 import logging
 import os
+import uuid
+from os.path import expanduser
 
 from flask import Flask, jsonify, send_file, request
 from flask_cors import CORS
+from ultralytics.yolo.utils import set_settings
 from werkzeug.utils import secure_filename
 
+from aisieve.TrainView import trainview
+
 app = Flask(__name__)
+
+app.register_blueprint(trainview)
 
 currentDir = os.path.dirname(os.path.realpath(__file__))
 
@@ -57,4 +65,18 @@ def publish_annotation():
 
 
 if __name__ == '__main__':
+    home = expanduser("~")
+    projectDir = os.path.join(home, "aisieve-dataset")
+    datasetsDir = os.path.join(projectDir, "datasets")
+
+    set_settings({
+        "datasets_dir": datasetsDir,
+        "weights_dir": os.path.join(datasetsDir, "weights"),
+        "runs_dir": os.path.join(datasetsDir, "runs"),
+        "uuid": hashlib.sha256(str(uuid.getnode()).encode()).hexdigest(),
+        "sync": True,
+        "api_key": '',
+        "settings_version": "0.0.3"
+    })
+
     app.run(debug=True)
