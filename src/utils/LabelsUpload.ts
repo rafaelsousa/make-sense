@@ -29,12 +29,15 @@ const downloadFile = async (fileUrl): Promise<File> => {
 
 export const LabelsUpload = async () => {
     try {
-
         // Get the labels.txt file
+        const labelsResponse = await axios.get(`http://localhost:5000/labels`, {responseType: 'text'});
+        const labelsFile =  new File([labelsResponse.data], 'labels.txt', {type: 'application/txt'});
+
         const response = await axios.get('http://localhost:5000/annotations');
         const fileData = response.data;
         const fileList: string[] = fileData.annotations;
         const acceptedFiles = await Promise.all(fileList.map((fileUrl: string) => downloadFile(fileUrl)));
+        acceptedFiles.push(labelsFile);
 
         const importer = new (ImporterSpecData[AnnotationFormatType.YOLO])([LabelType.RECT]);
         importer.import(acceptedFiles, onAnnotationLoadSuccess, onAnnotationsLoadFailure);
