@@ -1,7 +1,8 @@
-import {updateActivePopupType} from '../../store/general/actionCreators';
+import {updateActiveContext, updateActivePopupType} from '~/store/general/actionCreators';
 import {PopupWindowType} from '../enums/PopupWindowType';
-import {store} from '../../index';
+import {store} from '~/index';
 import {RectLabelsExporter} from "~/logic/export/RectLabelsExporter";
+import {ContextType} from "~/data/enums/ContextType";
 
 export type DropDownMenuNode = {
     name: string
@@ -15,7 +16,7 @@ export type DropDownMenuNode = {
 
 export const DropDownMenuData: DropDownMenuNode[] = [
     {
-        name: 'Actions',
+        name: 'Annotate',
         imageSrc: 'ico/actions.png',
         imageAlt: 'actions',
         disabled: false,
@@ -76,6 +77,22 @@ export const DropDownMenuData: DropDownMenuNode[] = [
             //     disabled: false,
             //     onClick: () => store.dispatch(updateActivePopupType(PopupWindowType.CONNECT_AI_MODEL_VIA_API))
             // },
+        ]
+    },
+    {
+        name: 'Vision',
+        imageSrc: 'ico/view.png',
+        imageAlt: 'Vision',
+        disabled: false,
+        children: [
+            {
+                name: 'Model Training',
+                description: 'Retrain the model with the new labels',
+                imageSrc: 'ico/model-training.png',
+                imageAlt: 'model training',
+                disabled: false,
+                onClick: () => store.dispatch(updateActiveContext(ContextType.TRAINING))
+            },
         ]
     },
     // {

@@ -10,6 +10,7 @@ import {LabelName} from "~/store/labels/types";
 import {useDispatch, useSelector} from "react-redux";
 import {store} from "~/index";
 import {updateLabelNames} from "~/store/labels/actionCreators";
+import {ContextType} from "~/data/enums/ContextType";
 
 
 export const App: React.FC = (
@@ -17,6 +18,8 @@ export const App: React.FC = (
 ) => {
     const [projectLoaded, setProjectLoaded] = useState(false)
     const dispatch = useDispatch()
+    const currentContext = useSelector((state: any) => state.general.activeContext)
+    console.log('currentContext', currentContext)
     useEffect(() => {
         (async () => {
             await ImagesDownload()
@@ -32,7 +35,7 @@ export const App: React.FC = (
     }, [])
     return (projectLoaded &&
         <div className={classNames('App', {'AI': false})} draggable={false}>
-            <EditorView/>
+            {currentContext == ContextType.EDITOR && <EditorView />}
             <PopupView/>
             <NotificationsView/>
         </div>

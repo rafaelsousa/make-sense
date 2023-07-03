@@ -4,7 +4,7 @@ import EditorContainer from './EditorContainer/EditorContainer';
 import {PopupWindowType} from '~/data/enums/PopupWindowType';
 import {AppState} from '~/store';
 import {connect} from 'react-redux';
-import TopNavigationBar from './TopNavigationBar/TopNavigationBar';
+import TopNavigationBar from '~/views/Common/TopNavigationBar/TopNavigationBar';
 import {updateLabelNames} from "~/store/labels/actionCreators";
 import {LabelName} from "~/store/labels/types";
 
@@ -14,9 +14,6 @@ interface IProps {
 }
 
 const EditorView: React.FC<IProps> = ({activePopupType, updateLabelNamesAction}) => {
-
-
-
 
     return (
         <div className={'EditorView'} draggable={false}>

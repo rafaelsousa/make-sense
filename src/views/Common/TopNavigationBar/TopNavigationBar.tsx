@@ -1,14 +1,14 @@
 import React from 'react';
 import './TopNavigationBar.scss';
-import StateBar from '../StateBar/StateBar';
-import {PopupWindowType} from '../../../data/enums/PopupWindowType';
-import {AppState} from '../../../store';
+import StateBar from '../../EditorView/StateBar/StateBar';
+import {PopupWindowType} from '~/data/enums/PopupWindowType';
+import {AppState} from '~/store';
 import {connect} from 'react-redux';
-import {updateActivePopupType, updateProjectData} from '../../../store/general/actionCreators';
-import TextInput from '../../Common/TextInput/TextInput';
-import {ImageButton} from '../../Common/ImageButton/ImageButton';
-import {Settings} from '../../../settings/Settings';
-import {ProjectData} from '../../../store/general/types';
+import {updateActivePopupType, updateProjectData} from '~/store/general/actionCreators';
+import TextInput from '../TextInput/TextInput';
+import {ImageButton} from '../ImageButton/ImageButton';
+import {Settings} from '~/settings/Settings';
+import {ProjectData} from '~/store/general/types';
 import DropDownMenu from './DropDownMenu/DropDownMenu';
 
 interface IProps {
@@ -39,19 +39,6 @@ const TopNavigationBar: React.FC<IProps> = (props) => {
         <div className='TopNavigationBar'>
             <StateBar/>
             <div className='TopNavigationBarWrapper'>
-                <div className='NavigationBarGroupWrapper'>
-                    <div
-                        className='Header'
-                        onClick={closePopup}
-                    >
-                        <img
-                            draggable={false}
-                            alt={'make-sense'}
-                            src={'/make-sense-ico-transparent.png'}
-                        />
-                        Make Sense
-                    </div>
-                </div>
                 <div className='NavigationBarGroupWrapper'>
                     <DropDownMenu/>
                 </div>

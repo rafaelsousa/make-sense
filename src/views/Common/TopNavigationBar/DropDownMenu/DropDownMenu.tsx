@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import classNames from 'classnames'
 import './DropDownMenu.scss';
-import {DropDownMenuData, DropDownMenuNode} from '../../../../data/info/DropDownMenuData';
-import {EventType} from '../../../../data/enums/EventType';
-import {updatePreventCustomCursorStatus} from '../../../../store/general/actionCreators';
-import {AppState} from '../../../../store';
+import {DropDownMenuData, DropDownMenuNode} from '~/data/info/DropDownMenuData';
+import {EventType} from '~/data/enums/EventType';
+import {updatePreventCustomCursorStatus} from '~/store/general/actionCreators';
+import {AppState} from '~/store';
 import {connect} from 'react-redux';
 
 interface IProps {
@@ -113,20 +113,21 @@ const DropDownMenu: React.FC<IProps> = ({updatePreventCustomCursorStatusAction})
             >
                 {data.children.map((element: DropDownMenuNode, index: number) => {
                     return <div className={getDropDownMenuContentOption(element.disabled)}
-                        onClick={wrapOnClick(element.onClick, element.disabled)}
-                        key={index}
+                                onClick={wrapOnClick(element.onClick, element.disabled)}
+                                key={index}
                     >
                         <div className='Marker'/>
                         <img src={element.imageSrc} alt={element.imageAlt}/>
                         {element.name}
-                    </div>})}
+                    </div>
+                })}
             </div>
         } else {
             return null;
         }
     }
 
-    return(<div className='DropDownMenuWrapper'>
+    return (<div className='DropDownMenuWrapper'>
         <>
             {getDropDownContent()}
             {getDropDownWindow(DropDownMenuData[activeTabIdx])}
