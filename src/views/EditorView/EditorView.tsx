@@ -13,7 +13,7 @@ interface IProps {
     updateLabelNamesAction: (labels: LabelName[]) => any;
 }
 
-const EditorView: React.FC<IProps> = ({activePopupType, updateLabelNamesAction}) => {
+const EditorView: React.FC<IProps> = () => {
 
     return (
         <div className={'EditorView'} draggable={false}>

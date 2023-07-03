@@ -8,18 +8,32 @@ import {ImagesDownload} from "~/utils/ImagesDownload";
 import {LabelsUpload} from "~/utils/LabelsUpload";
 import {LabelName} from "~/store/labels/types";
 import {useDispatch, useSelector} from "react-redux";
-import {store} from "~/index";
 import {updateLabelNames} from "~/store/labels/actionCreators";
 import {ContextType} from "~/data/enums/ContextType";
+import TrainingView from "~/views/TrainingView/TrainingView";
+import {createTheme, colors, ThemeProvider} from "@mui/material";
+
+const theme = createTheme({
+    palette: {
+        mode: 'dark',
+        primary: {
+            main: '#5893df',
+        },
+        secondary: {
+            main: '#2ec5d3',
+        },
+        background: {
+            default: '#192231',
+            paper: '#24344d',
+        },
+    },
+})
 
 
-export const App: React.FC = (
-
-) => {
+export const App: React.FC = () => {
     const [projectLoaded, setProjectLoaded] = useState(false)
     const dispatch = useDispatch()
     const currentContext = useSelector((state: any) => state.general.activeContext)
-    console.log('currentContext', currentContext)
     useEffect(() => {
         (async () => {
             await ImagesDownload()
@@ -34,11 +48,14 @@ export const App: React.FC = (
         })()
     }, [])
     return (projectLoaded &&
-        <div className={classNames('App', {'AI': false})} draggable={false}>
-            {currentContext == ContextType.EDITOR && <EditorView />}
-            <PopupView/>
-            <NotificationsView/>
-        </div>
+        <ThemeProvider theme={theme}>
+            <div className={classNames('App', {'AI': false})} draggable={false}>
+                {currentContext == ContextType.EDITOR && <EditorView/>}
+                {currentContext == ContextType.TRAINING && <TrainingView/>}
+                <PopupView/>
+                <NotificationsView/>
+            </div>
+        </ThemeProvider>
     );
 };
 

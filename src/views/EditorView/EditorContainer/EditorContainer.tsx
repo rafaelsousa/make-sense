@@ -55,7 +55,6 @@ const EditorContainer: React.FC<IProps> = (
             ContextManager.switchCtx(ContextType.LEFT_NAVBAR);
         else if (leftTabStatus && activeContext === ContextType.LEFT_NAVBAR)
             ContextManager.restoreCtx();
-
         setLeftTabStatus(!leftTabStatus);
     };
 
