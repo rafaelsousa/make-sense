@@ -1,8 +1,7 @@
-import {addImageData, updateActiveImageIndex, updateImageData} from '~/store/labels/actionCreators';
+import {updateActiveImageIndex, updateImageData} from '~/store/labels/actionCreators';
 import {ProjectType} from '~/data/enums/ProjectType';
 import {updateProjectData} from '~/store/general/actionCreators';
 import {ImageDataUtil} from '~/utils/ImageDataUtil';
-import {ImageData} from '~/store/labels/types';
 import {sortBy} from 'lodash';
 import axios from "axios";
 import {store} from "~/index";

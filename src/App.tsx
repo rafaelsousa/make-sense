@@ -11,7 +11,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateLabelNames} from "~/store/labels/actionCreators";
 import {ContextType} from "~/data/enums/ContextType";
 import TrainingView from "~/views/TrainingView/TrainingView";
-import {createTheme, colors, ThemeProvider} from "@mui/material";
+import {Alert, Box, createTheme, ThemeProvider} from "@mui/material";
+import axios from "axios";
 
 const theme = createTheme({
     palette: {
@@ -29,34 +30,78 @@ const theme = createTheme({
     },
 })
 
+enum ServerStatus {
+    LOADING,
+    ONLINE,
+    OFFLINE,
+}
+
 
 export const App: React.FC = () => {
     const [projectLoaded, setProjectLoaded] = useState(false)
     const dispatch = useDispatch()
     const currentContext = useSelector((state: any) => state.general.activeContext)
+
+    // Server Status Check
+    const [loading, setLoading] = useState(true);
+    const [serverStatus, setServerStatus] = useState(ServerStatus.LOADING);
+
     useEffect(() => {
-        (async () => {
-            await ImagesDownload()
-            await LabelsUpload()
-            const l: LabelName[] = [{
-                id: '0',
-                name: 'peeble',
-                color: '#ff0000',
-            }]
-            dispatch(updateLabelNames(l))
-            setProjectLoaded(true)
-        })()
-    }, [])
-    return (projectLoaded &&
-        <ThemeProvider theme={theme}>
-            <div className={classNames('App', {'AI': false})} draggable={false}>
-                {currentContext == ContextType.EDITOR && <EditorView/>}
-                {currentContext == ContextType.TRAINING && <TrainingView/>}
-                <PopupView/>
-                <NotificationsView/>
-            </div>
-        </ThemeProvider>
-    );
+        axios.get('https://localhost:5000/health')
+            .then(response => {
+                setLoading(false);
+            })
+            .catch(error => {
+                setLoading(false);
+                setServerStatus(ServerStatus.OFFLINE);
+            });
+    }, []);
+
+
+    useEffect(() => {
+        if (serverStatus == ServerStatus.ONLINE) {
+            (async () => {
+                await ImagesDownload()
+                await LabelsUpload()
+                const l: LabelName[] = [{
+                    id: '0',
+                    name: 'peeble',
+                    color: '#ff0000',
+                }]
+                dispatch(updateLabelNames(l))
+                setProjectLoaded(true)
+            })()
+        }
+    }, [serverStatus])
+    return (
+        <>
+            {serverStatus == ServerStatus.ONLINE && projectLoaded &&
+                <ThemeProvider theme={theme}>
+                    <div className={classNames('App', {'AI': false})} draggable={false}>
+                        {currentContext == ContextType.EDITOR && <EditorView/>}
+                        {currentContext == ContextType.TRAINING && <TrainingView/>}
+                        <PopupView/>
+                        <NotificationsView/>
+                    </div>
+                </ThemeProvider>}
+
+            {serverStatus == ServerStatus.OFFLINE &&
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '100vh'
+                    }}
+                >
+                    <Alert severity="error">
+                        Server is not responding. Please refresh the page or try again later.
+                    </Alert>
+                </Box>
+
+            }
+        </>
+    )
 };
 
 
