@@ -1,33 +1,32 @@
 import React from 'react';
 import './Editor.scss';
-import {ISize} from '../../../interfaces/ISize';
-import {ImageData, LabelPoint, LabelRect} from '../../../store/labels/types';
-import {FileUtil} from '../../../utils/FileUtil';
-import {AppState} from '../../../store';
+import {ISize} from '~/interfaces/ISize';
+import {ImageData, LabelPoint, LabelRect} from '~/store/labels/types';
+import {FileUtil} from '~/utils/FileUtil';
+import {AppState} from '~/store';
 import {connect} from 'react-redux';
-import {updateImageDataById} from '../../../store/labels/actionCreators';
-import {ImageRepository} from '../../../logic/imageRepository/ImageRepository';
-import {LabelType} from '../../../data/enums/LabelType';
-import {PopupWindowType} from '../../../data/enums/PopupWindowType';
-import {CanvasUtil} from '../../../utils/CanvasUtil';
-import {CustomCursorStyle} from '../../../data/enums/CustomCursorStyle';
-import {ImageLoadManager} from '../../../logic/imageRepository/ImageLoadManager';
-import {EventType} from '../../../data/enums/EventType';
-import {EditorData} from '../../../data/EditorData';
-import {EditorModel} from '../../../staticModels/EditorModel';
-import {EditorActions} from '../../../logic/actions/EditorActions';
-import {EditorUtil} from '../../../utils/EditorUtil';
-import {ContextManager} from '../../../logic/context/ContextManager';
-import {ContextType} from '../../../data/enums/ContextType';
+import {updateImageDataById} from '~/store/labels/actionCreators';
+import {ImageRepository} from '~/logic/imageRepository/ImageRepository';
+import {LabelType} from '~/data/enums/LabelType';
+import {PopupWindowType} from '~/data/enums/PopupWindowType';
+import {CanvasUtil} from '~/utils/CanvasUtil';
+import {CustomCursorStyle} from '~/data/enums/CustomCursorStyle';
+import {ImageLoadManager} from '~/logic/imageRepository/ImageLoadManager';
+import {EventType} from '~/data/enums/EventType';
+import {EditorData} from '~/data/EditorData';
+import {EditorModel} from '~/staticModels/EditorModel';
+import {EditorActions} from '~/logic/actions/EditorActions';
+import {EditorUtil} from '~/utils/EditorUtil';
+import {ContextManager} from '~/logic/context/ContextManager';
+import {ContextType} from '~/data/enums/ContextType';
 import Scrollbars from 'react-custom-scrollbars-2';
-import {ViewPortActions} from '../../../logic/actions/ViewPortActions';
-import {PlatformModel} from '../../../staticModels/PlatformModel';
+import {ViewPortActions} from '~/logic/actions/ViewPortActions';
+import {PlatformModel} from '~/staticModels/PlatformModel';
 import LabelControlPanel from '../LabelControlPanel/LabelControlPanel';
-import {IPoint} from '../../../interfaces/IPoint';
-import {RenderEngineUtil} from '../../../utils/RenderEngineUtil';
-import {LabelStatus} from '../../../data/enums/LabelStatus';
+import {IPoint} from '~/interfaces/IPoint';
+import {RenderEngineUtil} from '~/utils/RenderEngineUtil';
+import {LabelStatus} from '~/data/enums/LabelStatus';
 import {isEqual} from 'lodash';
-import {AIActions} from '../../../logic/actions/AIActions';
 
 interface IProps {
     size: ISize;
@@ -83,7 +82,6 @@ class Editor extends React.Component<IProps, IState> {
 
         if (prevProps.activeLabelType !== activeLabelType) {
             EditorActions.swapSupportRenderingEngine(activeLabelType);
-            AIActions.detect(imageData.id, ImageRepository.getById(imageData.id));
         }
 
         this.updateModelAndRender();
@@ -114,7 +112,6 @@ class Editor extends React.Component<IProps, IState> {
     private loadImage = async (imageData: ImageData): Promise<any> => {
         if (imageData.loadStatus) {
             EditorActions.setActiveImage(ImageRepository.getById(imageData.id));
-            AIActions.detect(imageData.id, ImageRepository.getById(imageData.id));
             this.updateModelAndRender()
         }
         else {
@@ -133,7 +130,6 @@ class Editor extends React.Component<IProps, IState> {
         this.props.updateImageDataById(imageData.id, imageData);
         ImageRepository.storeImage(imageData.id, image);
         EditorActions.setActiveImage(image);
-        AIActions.detect(imageData.id, image);
         EditorActions.setLoadingStatus(false);
         this.updateModelAndRender()
     };
