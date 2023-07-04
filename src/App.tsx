@@ -12,7 +12,6 @@ import {updateLabelNames} from "~/store/labels/actionCreators";
 import {ContextType} from "~/data/enums/ContextType";
 import TrainingView from "~/views/TrainingView/TrainingView";
 import {Alert, Box, createTheme, ThemeProvider} from "@mui/material";
-import axios from "axios";
 
 const theme = createTheme({
     palette: {
