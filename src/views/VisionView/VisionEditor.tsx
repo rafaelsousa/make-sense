@@ -1,6 +1,8 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Box, Button, LinearProgress, Stack, styled} from "@mui/material";
 import {io} from "socket.io-client";
+import BBoxAnnotator from "react-bbox-annotator";
+import {EntryType} from "react-bbox-annotator";
 
 interface TrainingData {
     currentEpoch: number;
@@ -17,9 +19,13 @@ const StyledBox = styled(Box)(({theme}) => ({
 }));
 
 
-const TrainingEditor: React.FC = () => {
+const VisionEditor: React.FC = () => {
 
     const [progress, setProgress] = React.useState(0);
+
+    const labels = ['peeble']
+
+    const [entries, setEntries] = useState<EntryType[]>([]);
 
     const startTraining = () => {
         fetch('http://localhost:5000/train').then((response) => {
@@ -64,7 +70,10 @@ const TrainingEditor: React.FC = () => {
             </Stack>
             % of epochs completed
         </StyledBox>
+        <StyledBox>
+            lalala
+        </StyledBox>
     </>
 }
 
-export default TrainingEditor;
+export default VisionEditor;

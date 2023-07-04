@@ -1,16 +1,16 @@
 import React from "react";
 import TopNavigationBar from "~/views/Common/TopNavigationBar/TopNavigationBar";
-import TrainingEditor from "~/views/TrainingView/TrainingEditor";
+import VisionEditor from "~/views/VisionView/VisionEditor";
 
-const TrainingView: React.FC = () => {
+const VisionView: React.FC = () => {
 
     return (
         <div className={'EditorView'} draggable={false}>
             <TopNavigationBar/>
-            <TrainingEditor/>
+            <VisionEditor/>
         </div>
     );
 };
 
 
-export default TrainingView;
+export default VisionView;

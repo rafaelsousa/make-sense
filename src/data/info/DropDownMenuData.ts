@@ -21,6 +21,14 @@ export const DropDownMenuData: DropDownMenuNode[] = [
         disabled: false,
         children: [
             {
+                name: 'Annotate Images',
+                description: 'Annotate Images',
+                imageSrc: 'ico/actions.png',
+                imageAlt: 'labels',
+                disabled: false,
+                onClick: () => window.location.href = '/'
+            },
+            {
                 name: 'Edit Labels',
                 description: 'Modify labels list',
                 imageSrc: 'ico/tags.png',
@@ -85,12 +93,12 @@ export const DropDownMenuData: DropDownMenuNode[] = [
         disabled: false,
         children: [
             {
-                name: 'Model Training',
+                name: 'Training and Detection',
                 description: 'Retrain the model with the new labels',
                 imageSrc: 'ico/model-training.png',
                 imageAlt: 'model training',
                 disabled: false,
-                // onClick: () => store.dispatch(updateActiveContext(ContextType.TRAINING))
+                onClick: () => window.location.href = '/vision'
             },
         ]
     },
