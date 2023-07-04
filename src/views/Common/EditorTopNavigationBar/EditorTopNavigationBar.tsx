@@ -7,19 +7,18 @@ import {connect} from 'react-redux';
 import {updateCrossHairVisibleStatus, updateImageDragModeStatus} from '../../../store/general/actionCreators';
 import {GeneralSelector} from '../../../store/selectors/GeneralSelector';
 import {ViewPointSettings} from '../../../settings/ViewPointSettings';
-import {ImageButton} from '../../Common/ImageButton/ImageButton';
+import {ImageButton} from '../ImageButton/ImageButton';
 import {ViewPortActions} from '../../../logic/actions/ViewPortActions';
 import {LabelType} from '../../../data/enums/LabelType';
-import {AISelector} from '../../../store/selectors/AISelector';
 import {ISize} from '../../../interfaces/ISize';
 import {Fade, styled, Tooltip, tooltipClasses, TooltipProps} from '@mui/material';
 
-const BUTTON_SIZE: ISize = { width: 30, height: 30 };
+const BUTTON_SIZE: ISize = {width: 30, height: 30};
 const BUTTON_PADDING: number = 10;
 
-const StyledTooltip = styled(({ className, ...props }: TooltipProps) => (
-    <Tooltip {...props} classes={{ popper: className }} />
-  ))(({ theme }) => ({
+const StyledTooltip = styled(({className, ...props}: TooltipProps) => (
+    <Tooltip {...props} classes={{popper: className}}/>
+))(({theme}) => ({
     [`& .${tooltipClasses.tooltip}`]: {
         backgroundColor: '#171717',
         color: '#ffffff',
@@ -28,7 +27,7 @@ const StyledTooltip = styled(({ className, ...props }: TooltipProps) => (
         maxWidth: 200,
         textAlign: 'center'
     },
-  }));
+}));
 
 const getButtonWithTooltip = (
     key: string,
@@ -44,7 +43,7 @@ const getButtonWithTooltip = (
         disableFocusListener={true}
         title={tooltipMessage}
         TransitionComponent={Fade}
-        TransitionProps={{ timeout: 600 }}
+        TransitionProps={{timeout: 600}}
         placement='bottom'
     >
         <div>
@@ -91,8 +90,7 @@ const EditorTopNavigationBar: React.FC<IProps> = (
     const imageDragOnClick = () => {
         if (imageDragMode) {
             updateImageDragModeStatusAction(!imageDragMode);
-        }
-        else if (GeneralSelector.getZoom() !== ViewPointSettings.MIN_ZOOM) {
+        } else if (GeneralSelector.getZoom() !== ViewPointSettings.MIN_ZOOM) {
             updateImageDragModeStatusAction(!imageDragMode);
         }
     };
@@ -101,12 +99,6 @@ const EditorTopNavigationBar: React.FC<IProps> = (
         updateCrossHairVisibleStatusAction(!crossHairVisible);
     };
 
-    const withAI = (
-        (activeLabelType === LabelType.RECT && AISelector.isAISSDObjectDetectorModelLoaded()) ||
-        (activeLabelType === LabelType.RECT && AISelector.isAIYOLOObjectDetectorModelLoaded()) ||
-        (activeLabelType === LabelType.RECT && AISelector.isRoboflowAPIModelLoaded()) ||
-        (activeLabelType === LabelType.POINT && AISelector.isAIPoseDetectorModelLoaded())
-    )
 
     return (
         <div className={getClassName()}>

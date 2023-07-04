@@ -7,8 +7,6 @@ import LoadLabelsPopup from './LoadLabelNamesPopup/LoadLabelNamesPopup';
 import InsertLabelNamesPopup from './InsertLabelNamesPopup/InsertLabelNamesPopup';
 import ExitProjectPopup from './ExitProjectPopup/ExitProjectPopup';
 import LoadMoreImagesPopup from './LoadMoreImagesPopup/LoadMoreImagesPopup';
-import SuggestLabelNamesPopup from './SuggestLabelNamesPopup/SuggestLabelNamesPopup';
-import {CSSHelper} from '../../logic/helpers/CSSHelper';
 import {ClipLoader} from 'react-spinners';
 import ImportLabelPopup from './ImportLabelPopup/ImportLabelPopup';
 import ExportLabelPopup from './ExportLabelsPopup/ExportLabelPopup';
@@ -39,12 +37,9 @@ const PopupView: React.FC<IProps> = ({ activePopupType }) => {
                 return <ExitProjectPopup />;
             case PopupWindowType.IMPORT_IMAGES:
                 return <LoadMoreImagesPopup />;
-            case PopupWindowType.SUGGEST_LABEL_NAMES:
-                return <SuggestLabelNamesPopup />;
             case PopupWindowType.LOADER:
                 return <ClipLoader
                     size={50}
-                    color={CSSHelper.getLeadingColor()}
                     loading={true}
                 />;
             default:

@@ -13,8 +13,8 @@ import './EditorContainer.scss';
 import Editor from '../Editor/Editor';
 import {ContextManager} from '~/logic/context/ContextManager';
 import {ContextType} from '~/data/enums/ContextType';
-import EditorBottomNavigationBar from '../EditorBottomNavigationBar/EditorBottomNavigationBar';
-import EditorTopNavigationBar from '../EditorTopNavigationBar/EditorTopNavigationBar';
+import EditorBottomNavigationBar from '~/views/Common/BottomNavigationBar/BottomNavigationBar';
+import EditorTopNavigationBar from '~/views/Common/EditorTopNavigationBar/EditorTopNavigationBar';
 import {ProjectType} from '~/data/enums/ProjectType';
 
 interface IProps {
