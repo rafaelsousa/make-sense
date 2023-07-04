@@ -43,16 +43,14 @@ export const App: React.FC = () => {
     const currentContext = useSelector((state: any) => state.general.activeContext)
 
     // Server Status Check
-    const [loading, setLoading] = useState(true);
     const [serverStatus, setServerStatus] = useState(ServerStatus.LOADING);
 
     useEffect(() => {
-        axios.get('https://localhost:5000/health')
+        fetch('http://localhost:5000/health')
             .then(response => {
-                setLoading(false);
+                setServerStatus(ServerStatus.ONLINE)
             })
             .catch(error => {
-                setLoading(false);
                 setServerStatus(ServerStatus.OFFLINE);
             });
     }, []);
