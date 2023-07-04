@@ -1,4 +1,4 @@
-import { InferenceServerType } from '../enums/InferenceServerType';
+import {InferenceServerType} from '../enums/InferenceServerType';
 
 export interface IInferenceServer {
     name: string

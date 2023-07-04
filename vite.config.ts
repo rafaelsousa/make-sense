@@ -1,9 +1,4 @@
-import {
-    defineConfig,
-    loadEnv,
-    UserConfig,
-    UserConfigExport,
-} from 'vite';
+import {defineConfig, loadEnv, UserConfig, UserConfigExport,} from 'vite';
 
 import react from '@vitejs/plugin-react';
 import * as path from "path";

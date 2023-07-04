@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 import {labelsReducer} from './labels/reducer';
 import {generalReducer} from './general/reducer';
 import {aiReducer} from './ai/reducer';

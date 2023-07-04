@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import './ExportLabelPopup.scss';
-import { AnnotationFormatType } from '../../../data/enums/AnnotationFormatType';
-import { RectLabelsExporter } from '../../../logic/export/RectLabelsExporter';
-import { LabelType } from '../../../data/enums/LabelType';
-import { ILabelFormatData } from '../../../interfaces/ILabelFormatData';
-import { PointLabelsExporter } from '../../../logic/export/PointLabelsExport';
-import { PolygonLabelsExporter } from '../../../logic/export/polygon/PolygonLabelsExporter';
-import { PopupActions } from '../../../logic/actions/PopupActions';
-import { LineLabelsExporter } from '../../../logic/export/LineLabelExport';
-import { TagLabelsExporter } from '../../../logic/export/TagLabelsExport';
+import {AnnotationFormatType} from '../../../data/enums/AnnotationFormatType';
+import {RectLabelsExporter} from '../../../logic/export/RectLabelsExporter';
+import {LabelType} from '../../../data/enums/LabelType';
+import {ILabelFormatData} from '../../../interfaces/ILabelFormatData';
+import {PointLabelsExporter} from '../../../logic/export/PointLabelsExport';
+import {PolygonLabelsExporter} from '../../../logic/export/polygon/PolygonLabelsExporter';
+import {PopupActions} from '../../../logic/actions/PopupActions';
+import {LineLabelsExporter} from '../../../logic/export/LineLabelExport';
+import {TagLabelsExporter} from '../../../logic/export/TagLabelsExport';
 import GenericLabelTypePopup from '../GenericLabelTypePopup/GenericLabelTypePopup';
-import { ExportFormatData } from '../../../data/ExportFormatData';
-import { AppState } from '../../../store';
-import { connect } from 'react-redux';
+import {ExportFormatData} from '../../../data/ExportFormatData';
+import {AppState} from '../../../store';
+import {connect} from 'react-redux';
 
 interface IProps {
     activeLabelType: LabelType,

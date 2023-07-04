@@ -1,8 +1,7 @@
-import {updateActiveContext, updateActivePopupType} from '~/store/general/actionCreators';
+import {updateActivePopupType} from '~/store/general/actionCreators';
 import {PopupWindowType} from '../enums/PopupWindowType';
 import {store} from '~/index';
 import {RectLabelsExporter} from "~/logic/export/RectLabelsExporter";
-import {ContextType} from "~/data/enums/ContextType";
 
 export type DropDownMenuNode = {
     name: string

@@ -17,7 +17,7 @@ import {EditorActions} from '../actions/EditorActions';
 import {LabelsSelector} from '../../store/selectors/LabelsSelector';
 import {DrawUtil} from '../../utils/DrawUtil';
 import {GeneralSelector} from '../../store/selectors/GeneralSelector';
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import {ILine} from '../../interfaces/ILine';
 import {LineUtil} from '../../utils/LineUtil';
 import {updateCustomCursorStyle} from '../../store/general/actionCreators';

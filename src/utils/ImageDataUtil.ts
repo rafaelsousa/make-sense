@@ -1,5 +1,5 @@
 import {ImageData} from '../store/labels/types';
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import {FileUtil} from './FileUtil';
 import {ImageRepository} from '../logic/imageRepository/ImageRepository';
 

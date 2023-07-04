@@ -1,8 +1,8 @@
 import * as React from 'react';
+import {LegacyRef} from 'react';
 import {ISize} from "../../../interfaces/ISize";
 import './ImageButton.scss';
 import classNames from "classnames";
-import {LegacyRef} from "react";
 
 export interface ImageButtonProps extends React.HTMLProps<HTMLDivElement> {
     buttonSize:ISize,

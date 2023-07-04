@@ -11,6 +11,7 @@ import classNames from "classnames";
 import {ImageButton} from "../../../Common/ImageButton/ImageButton";
 import {PopupWindowType} from "../../../../data/enums/PopupWindowType";
 import {updateActivePopupType} from "../../../../store/general/actionCreators";
+
 interface IProps {
     size: ISize;
     imageData: ImageData;

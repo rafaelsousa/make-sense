@@ -6,8 +6,6 @@ import {AppState} from '~/store';
 import {connect} from 'react-redux';
 import {updateActivePopupType, updateProjectData} from '~/store/general/actionCreators';
 import TextInput from '../TextInput/TextInput';
-import {ImageButton} from '../ImageButton/ImageButton';
-import {Settings} from '~/settings/Settings';
 import {ProjectData} from '~/store/general/types';
 import DropDownMenu from './DropDownMenu/DropDownMenu';
 

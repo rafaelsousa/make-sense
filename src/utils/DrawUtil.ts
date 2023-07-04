@@ -1,4 +1,3 @@
-
 import {IPoint} from '../interfaces/IPoint';
 import {IRect} from '../interfaces/IRect';
 import {UnitUtil} from './UnitUtil';

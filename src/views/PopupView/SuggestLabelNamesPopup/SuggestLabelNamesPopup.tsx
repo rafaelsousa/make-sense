@@ -10,7 +10,7 @@ import Scrollbars from 'react-custom-scrollbars-2';
 import {LabelName} from '../../../store/labels/types';
 import {updateLabelNames} from '../../../store/labels/actionCreators';
 import {LabelsSelector} from '../../../store/selectors/LabelsSelector';
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import {ArrayUtil} from '../../../utils/ArrayUtil';
 import {Settings} from '../../../settings/Settings';
 

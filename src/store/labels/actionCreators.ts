@@ -1,4 +1,4 @@
-import {LabelsActionTypes, ImageData, LabelName} from './types';
+import {ImageData, LabelName, LabelsActionTypes} from './types';
 import {Action} from '../Actions';
 import {LabelType} from '../../data/enums/LabelType';
 

@@ -1,5 +1,5 @@
 import {store} from '../..';
-import { RoboflowAPIDetails } from '../ai/types';
+import {RoboflowAPIDetails} from '../ai/types';
 
 export class AISelector {
     public static getSuggestedLabelList(): string[] {

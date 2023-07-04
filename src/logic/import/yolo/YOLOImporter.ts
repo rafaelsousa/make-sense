@@ -6,7 +6,7 @@ import {NoLabelNamesFileProvidedError} from './YOLOErrors';
 import {LabelsSelector} from '../../../store/selectors/LabelsSelector';
 import {YOLOUtils} from './YOLOUtils';
 import {ImageDataUtil} from '../../../utils/ImageDataUtil';
-import {zip, find} from 'lodash';
+import {find, zip} from 'lodash';
 import {ImageRepository} from '../../imageRepository/ImageRepository';
 
 export type YOLOFilesSpec = {

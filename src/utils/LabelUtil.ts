@@ -1,10 +1,9 @@
 import {Annotation, LabelName, LabelPoint, LabelPolygon, LabelRect} from '../store/labels/types';
-import { v4 as uuidv4 } from 'uuid';
-import {find} from 'lodash';
+import {v4 as uuidv4} from 'uuid';
+import {find, sample} from 'lodash';
 import {IRect} from '../interfaces/IRect';
 import {LabelStatus} from '../data/enums/LabelStatus';
 import {IPoint} from '../interfaces/IPoint';
-import { sample } from 'lodash';
 import {Settings} from '../settings/Settings';
 
 export class LabelUtil {

@@ -1,6 +1,6 @@
 import React from 'react';
 import './GenericSideMenuPopup.scss'
-import { GenericYesNoPopup } from '../GenericYesNoPopup/GenericYesNoPopup';
+import {GenericYesNoPopup} from '../GenericYesNoPopup/GenericYesNoPopup';
 
 interface IProps {
     title: string;

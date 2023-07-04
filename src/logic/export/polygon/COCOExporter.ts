@@ -4,7 +4,8 @@ import {GeneralSelector} from "../../../store/selectors/GeneralSelector";
 import {ImageRepository} from "../../imageRepository/ImageRepository";
 import {ExporterUtil} from "../../../utils/ExporterUtil";
 import {
-    COCOAnnotation, COCOBBox,
+    COCOAnnotation,
+    COCOBBox,
     COCOCategory,
     COCOImage,
     COCOInfo,

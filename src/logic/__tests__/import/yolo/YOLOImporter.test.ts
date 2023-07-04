@@ -1,9 +1,8 @@
-
-import { ImageData } from '../../../../store/labels/types';
-import { AcceptedFileType } from '../../../../data/enums/AcceptedFileType';
-import { v4 as uuidv4 } from 'uuid';
-import { YOLOImporter } from '../../../import/yolo/YOLOImporter';
-import { isEqual } from 'lodash';
+import {ImageData} from '../../../../store/labels/types';
+import {AcceptedFileType} from '../../../../data/enums/AcceptedFileType';
+import {v4 as uuidv4} from 'uuid';
+import {YOLOImporter} from '../../../import/yolo/YOLOImporter';
+import {isEqual} from 'lodash';
 
 const getDummyImageData = (fileName: string): ImageData => {
     return {

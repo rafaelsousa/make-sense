@@ -2,7 +2,7 @@ import {ContextType} from "../../data/enums/ContextType";
 import {HotKeyAction} from "../../data/HotKeyAction";
 import {store} from "../../index";
 import {updateActiveContext} from "../../store/general/actionCreators";
-import {xor, isEmpty} from "lodash";
+import {isEmpty, xor} from "lodash";
 import {EditorContext} from "./EditorContext";
 import {PopupContext} from "./PopupContext";
 import {GeneralSelector} from "../../store/selectors/GeneralSelector";

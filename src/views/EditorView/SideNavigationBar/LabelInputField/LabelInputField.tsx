@@ -16,7 +16,7 @@ import {LabelsSelector} from '../../../../store/selectors/LabelsSelector';
 import {PopupWindowType} from '../../../../data/enums/PopupWindowType';
 import {updateActivePopupType} from '../../../../store/general/actionCreators';
 import {truncate} from 'lodash';
-import { Settings } from '../../../../settings/Settings';
+import {Settings} from '../../../../settings/Settings';
 
 interface IProps {
     size: ISize;
