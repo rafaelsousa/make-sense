@@ -91,7 +91,7 @@ export const DropDownMenuData: DropDownMenuNode[] = [
                 imageSrc: 'ico/model-training.png',
                 imageAlt: 'model training',
                 disabled: false,
-                onClick: () => store.dispatch(updateActiveContext(ContextType.TRAINING))
+                // onClick: () => store.dispatch(updateActiveContext(ContextType.TRAINING))
             },
         ]
     },

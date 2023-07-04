@@ -51,14 +51,6 @@ const TopNavigationBar: React.FC<IProps> = (props) => {
                         onFocus={onFocus}
                     />
                 </div>
-                <div className='NavigationBarGroupWrapper'>
-                    <ImageButton
-                        image={'ico/github-logo.png'}
-                        imageAlt={'github-logo.png'}
-                        buttonSize={{width: 30, height: 30}}
-                        href={Settings.GITHUB_URL}
-                    />
-                </div>
             </div>
         </div>
     );

@@ -1,16 +1,16 @@
-import {DetectedObject, load, YOLOv5, ModelConfig} from 'yolov5js'
-import {store} from '../index';
-import {updateYOLOV5ObjectDetectorStatus} from '../store/ai/actionCreators';
-import {updateActiveLabelType} from '../store/labels/actionCreators';
-import {LabelType} from '../data/enums/LabelType';
-import {NotificationUtil} from '../utils/NotificationUtil';
-import {NotificationsDataMap} from '../data/info/NotificationsData';
-import {Notification} from '../data/enums/Notification';
-import {submitNewNotification} from '../store/notifications/actionCreators';
-import {LabelsSelector} from '../store/selectors/LabelsSelector';
-import {AIYOLOObjectDetectionActions} from '../logic/actions/AIYOLOObjectDetectionActions';
-import {ImageData} from '../store/labels/types';
-import {ImageRepository} from '../logic/imageRepository/ImageRepository';
+import {DetectedObject, load, ModelConfig, YOLOv5} from 'yolov5js'
+import {store} from '~/index';
+import {updateYOLOV5ObjectDetectorStatus} from '~/store/ai/actionCreators';
+import {updateActiveLabelType} from '~/store/labels/actionCreators';
+import {LabelType} from '~/data/enums/LabelType';
+import {NotificationUtil} from '~/utils/NotificationUtil';
+import {NotificationsDataMap} from "~/data/info/NotificationsData";
+import {Notification} from '~/data/enums/Notification';
+import {submitNewNotification} from '~/store/notifications/actionCreators';
+import {LabelsSelector} from '~/store/selectors/LabelsSelector';
+import {AIYOLOObjectDetectionActions} from '~/logic/actions/AIYOLOObjectDetectionActions';
+import {ImageData} from '~/store/labels/types';
+import {ImageRepository} from '~/logic/imageRepository/ImageRepository';
 
 export class YOLOV5ObjectDetector {
     private static model: YOLOv5;
@@ -37,11 +37,11 @@ export class YOLOV5ObjectDetector {
     }
 
     private static loadModelSafely(modelConfig: ModelConfig, image: HTMLImageElement): Promise<YOLOv5> {
-        return new Promise( (resolve, reject) => {
+        return new Promise((resolve, reject) => {
             load(modelConfig, [640, 640])
                 .then((model640: YOLOv5) => {
                     model640.detect(image)
-                        .then((detections: DetectedObject[]) => resolve(model640))
+                        .then(() => resolve(model640))
                         .catch((error: Error) => {
                             load(modelConfig, [1280, 1280])
                                 .then((model1280: YOLOv5) => {
