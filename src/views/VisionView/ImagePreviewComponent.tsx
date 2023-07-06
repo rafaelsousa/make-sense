@@ -71,8 +71,8 @@ const ImagePreviewComponent: React.FC<ImagePreviewProps> = ({selectedRun}) => {
             <StyledBox style={{height: '100%'}}>
                 {imagesList.map((item, index) => (
                     <Fragment key={index}>
-                        <PhotoView key={index} src={`http://localhost:5000/image/${item}`} width={100} height={100}>
-                            <img src={`http://localhost:5000/image/${item}`} loading="lazy" width={100} height={100}/>
+                        <PhotoView key={index} src={`http://localhost:5000/vision/prediction/${selectedRun}/${item}`} width={100} height={100}>
+                            <img src={`http://localhost:5000/vision/prediction/${selectedRun}/${item}`} loading="lazy" width={100} height={100}/>
                         </PhotoView>
                     </Fragment>
                 ))}
