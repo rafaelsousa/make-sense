@@ -1,28 +1,10 @@
 import React, {useEffect} from 'react';
-import {Box, Button, InputLabel, LinearProgress, MenuItem, Select, Stack, styled} from "@mui/material";
+import {Button, InputLabel, LinearProgress, MenuItem, Select, Stack} from "@mui/material";
 import {io} from "socket.io-client";
 import styles from './Vision.module.css'
 import 'react-photo-view/dist/react-photo-view.css';
-import {PhotoProvider, PhotoView} from "react-photo-view";
-import {height} from "@mui/system";
-
-interface TrainingData {
-    currentEpoch: number;
-    totalEpochs: number;
-}
-
-const StyledBox = styled(Box)(({theme}) => ({
-    width: '100%',
-    backgroundColor: theme.palette.background.paper,
-    color: theme.palette.common.white,
-    display: 'flex',
-    justifyContent: 'space-around',
-    flexDirection: 'row',
-    padding: '10px',
-    gap: '20px',
-    paddingLeft: '10px',
-    paddingRight: '10px',
-}));
+import ImagePreviewComponent from "~/views/VisionView/ImagePreviewComponent";
+import {StyledBox} from "~/views/VisionView/StyledBox";
 
 
 const VisionEditor: React.FC = () => {
@@ -32,7 +14,7 @@ const VisionEditor: React.FC = () => {
     const [totalEpochs, setTotalEpochs] = React.useState(0);
     const [runs, setRuns] = React.useState([]);
     const [selectedRun, setSelectedRun] = React.useState('')
-    const [imagesList, setImagesList] = React.useState([])
+
 
     const startTraining = () => {
         fetch('http://localhost:5000/train').then((response) => {
@@ -42,7 +24,7 @@ const VisionEditor: React.FC = () => {
 
     useEffect(() => {
 
-        const socket = io('ws://localhost:5000/detection')
+        const socket = io('ws://localhost:5000/training')
 
         socket.on('connect', () => {
             console.log('connected')
@@ -52,34 +34,33 @@ const VisionEditor: React.FC = () => {
             console.log('disconnected')
         })
 
-        socket.on('training', (data) => {
+        socket.on('endepoch', (data) => {
             setCurrentEpoch(data.currentEpoch)
             setTotalEpochs(data.totalEpochs)
             setProgress(data.percentage)
         })
+        socket.on('endtraining', updateRuns)
         return () => {
             socket.disconnect()
         }
     })
 
-    useEffect(() => {
+    const updateRuns = () => {
         fetch('http://localhost:5000/vision/runs').then((response) => {
             response.json().then((data) => {
                 setSelectedRun(data.runs[0])
                 setRuns(data.runs)
             })
         })
-        fetch('http://localhost:5000/images').then((response) => {
-            response.json().then((data) => {
-                setImagesList(data.images)
-            })
-        })
-    }, [])
+    }
+
+    useEffect(() => updateRuns(), [])
 
 
     const handleRunSelection = (event) => {
         setSelectedRun(event.target.value)
     };
+
     return <>
         <StyledBox>
             <Button sx={{width: '150px'}} onClick={startTraining}>Train</Button>
@@ -105,15 +86,7 @@ const VisionEditor: React.FC = () => {
                 })}
             </Select>
         </StyledBox>
-        <PhotoProvider>
-            <StyledBox style={{height: '100%'}}>
-                {imagesList.map((item, index) => (
-                    <PhotoView key={index} src={`http://localhost:5000/image/${item}`} width={100} height={100}>
-                        <img src={`http://localhost:5000/image/${item}`} loading="lazy" width={100} height={100}/>
-                    </PhotoView>
-                ))}
-            </StyledBox>
-        </PhotoProvider>
+        <ImagePreviewComponent selectedRun={selectedRun}/>
     </>
 }
 
