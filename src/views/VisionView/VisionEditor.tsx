@@ -1,18 +1,10 @@
 import React, {useEffect} from 'react';
-import {
-    Box,
-    Button,
-    ImageList,
-    ImageListItem,
-    InputLabel,
-    LinearProgress,
-    MenuItem,
-    Select,
-    Stack,
-    styled
-} from "@mui/material";
+import {Box, Button, InputLabel, LinearProgress, MenuItem, Select, Stack, styled} from "@mui/material";
 import {io} from "socket.io-client";
 import styles from './Vision.module.css'
+import 'react-photo-view/dist/react-photo-view.css';
+import {PhotoProvider, PhotoView} from "react-photo-view";
+import {height} from "@mui/system";
 
 interface TrainingData {
     currentEpoch: number;
@@ -28,6 +20,8 @@ const StyledBox = styled(Box)(({theme}) => ({
     flexDirection: 'row',
     padding: '10px',
     gap: '20px',
+    paddingLeft: '10px',
+    paddingRight: '10px',
 }));
 
 
@@ -89,7 +83,6 @@ const VisionEditor: React.FC = () => {
     return <>
         <StyledBox>
             <Button sx={{width: '150px'}} onClick={startTraining}>Train</Button>
-            <Button sx={{width: '150px'}}>Detect</Button>
             <Stack sx={{
                 width: "100%",
                 color: "grey.500",
@@ -103,7 +96,8 @@ const VisionEditor: React.FC = () => {
         </StyledBox>
         <StyledBox style={{justifyContent: 'flex-start'}}>
             <InputLabel id="runsLabel" className={styles.StyledBoxContent}>Runs</InputLabel>
-            <Select variant='outlined' className={styles.StyledBoxContent} color='secondary' label={"Runs"} labelId={"runsLabel"} value={selectedRun} onChange={handleRunSelection}>
+            <Select variant='outlined' className={styles.StyledBoxContent} color='secondary' label={"Runs"}
+                    labelId={"runsLabel"} value={selectedRun} onChange={handleRunSelection}>
                 {runs.map((run) => {
                     return <MenuItem value={run}>
                         {run}
@@ -111,15 +105,15 @@ const VisionEditor: React.FC = () => {
                 })}
             </Select>
         </StyledBox>
-        <StyledBox>
-            <ImageList sx={{ width: 200, height: '50vh' }} cols={1} rowHeight={164}>
-                {imagesList.map((item) => (
-                    <ImageListItem key={item.img}>
-                        <img src={`http://localhost:5000/image/${item}`} loading="lazy"/>
-                    </ImageListItem>
+        <PhotoProvider>
+            <StyledBox style={{height: '100%'}}>
+                {imagesList.map((item, index) => (
+                    <PhotoView key={index} src={`http://localhost:5000/image/${item}`} width={100} height={100}>
+                        <img src={`http://localhost:5000/image/${item}`} loading="lazy" width={100} height={100}/>
+                    </PhotoView>
                 ))}
-            </ImageList>
-        </StyledBox>
+            </StyledBox>
+        </PhotoProvider>
     </>
 }
 
